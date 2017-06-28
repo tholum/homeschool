@@ -13,3 +13,6 @@ This is very much in alpha stages, There is no ui for adding kids, Managing Prin
 
 ## Extended wishlist
 * Scrape all words known by child ( when they go through getting-ready-2, so I can find story's that have words they know that are interesting to them )
+* Add ability to Remotely help a child with homework via webcam , mic and Remotly viewing what there screen looks like ( So I can help when at work )
+* Add kahn accadamy and other learning sources
+* Block ability to click links within linked pages ( If it is a youtube video that is linked in the lesson, I do not want my kids to accidently click an ad )
