@@ -33,6 +33,7 @@ function createWindow () {
     mainWindow.webContents.on('new-window' , function(event , url ){
         event.preventDefault();
         console.log( url );
+        mainWindow.webContents.runTest(url);
     });
 }
 

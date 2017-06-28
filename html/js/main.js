@@ -1,3 +1,4 @@
+
 function Child(info){
     var self = this;
     self.name = ko.observable( info.name );
@@ -73,3 +74,7 @@ function main(){
     };
     self.updateInfo();
 }
+const {ipcRenderer} = require('electron')
+ipcRenderer.on('openpage', (event, arg) => {
+  console.log(arg) // prints "pong"
+})

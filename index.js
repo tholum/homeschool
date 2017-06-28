@@ -2,7 +2,7 @@ var baseUrl = "https://allinonehomeschool.com/"
 var jsdom = require("node-jsdom");
 var fs = require('fs');
 
-var subpage = 'getting-ready-2/';
+var subpage = 'getting-ready-1';
 var days = {};
 function cleanDayText( str ){
     return str.replace(/^(Day [0-9]{1,3})(.*)/ , "$1").replace( /\r?\n|\r/g , "" );
@@ -12,10 +12,10 @@ function matchesDay( str ){
 }
 
 jsdom.env(
-          baseUrl + subpage ,
+          baseUrl + subpage + "/",
             ["http://code.jquery.com/jquery.js"],
               function (errors, window) {
-                  window.$('ol').each( function( ){
+                  window.$('ul').each( function( ){
                       var self = this;
                       var DayFound = false;
                       var Day = "";
@@ -68,7 +68,7 @@ jsdom.env(
                       }
                 } );
                 console.log( days );
-                fs.writeFile("days.json", JSON.stringify( days ) , function(err) {
+                fs.writeFile( subpage + ".json", JSON.stringify( days ) , function(err) {
                     if(err) {
                         return console.log(err);
                     }
