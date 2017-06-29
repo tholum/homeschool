@@ -1,4 +1,21 @@
-
+function openLink( url ){
+  console.log( url );
+  var webview = $(`<webview id="foo" src="${url}" style="display:inline-flex; width:640px; height:480px"></webview>`);
+  
+  $("body").append(webview);
+}
+function replaceLink( html ){
+  var clean = $( "<div>" + html + "</div>" );
+  //return html;
+  clean.find("a").each(function(){
+    var link = $(this).attr("href");
+    $(this).removeAttr("href");
+    $(this).attr("orig-href" , link );
+    $(this).attr("onclick" , "openLink( $(this).attr('orig-href') );" );
+    //$(this).click( function(){ console.log("Click"); openLink( $(this).attr("orig-href") ); });
+  });
+  return clean.html();
+}
 function Child(info){
     var self = this;
     self.name = ko.observable( info.name );
