@@ -87,8 +87,8 @@ function main(){
         $(".webview").remove();
         if( v !== false ){
             if( String(v).indexOf("epbookspot") !== -1 ){
-                $.get("https://epbookspot.wordpress.com/lesson-1/" , function( html ){
-                    var webview = $("<div  class='webview'>" + $("<div >" + html + "</div>" ).find(".entry-content").html() + "</div>");
+                $.get(v  , function( html ){
+                    var webview = $("<div  class='webview readview'>" + $("<div >" + html + "</div>" ).find(".entry-content").html() + "</div>");
                     $("body").append(webview);
                 } );
             } else {
