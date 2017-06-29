@@ -3,12 +3,12 @@
   "version": "1.0.0",
   "description": "",
   "main": "electron.js",
-  "scripts" : {
-    "start": "electron . "
-  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "electron-pdf-window": "^1.0.11"
+  }
 }

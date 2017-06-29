@@ -26,6 +26,10 @@
                 font-size: 2vw;
                 margin-top: 2vw;
             }
+            .menubottom {
+                position: absolute;
+                bottom: 0;
+            }
             .menu {
                 width: 100%;
                 background : #ccc;
@@ -50,8 +54,9 @@
               width: 100%;
               height: calc(100% - 12vw);
               z-index: 10000;
-
-
+            }
+            li {
+                font-size: 48px;
             }
         </style>
     </head>
@@ -60,12 +65,13 @@
             <div class="row">
                 <div class="col-sm-1"></div>
                 <!-- ko foreach : children() -->
-                <div class="col-sm-5" >
+                <div class="col-sm-5"  >
                     <div class="child" data-bind="style : { backgroundColor : color }, click : function(){ getData(); $parent.child( $data );   }">
                         <strong data-bind="text : name"></strong>
                     </div>
                 </div>
                 <!-- /ko -->
+
             </div>
         <!-- /ko -->
         <!-- ko ifnot : child() === false -->
@@ -78,8 +84,35 @@
                         <strong data-bind="text : name"></strong>
                     </div>
                 <!-- /ko -->
+                <!-- ko if: webview() -->
+                <div  >
+                    <div class="item" style="background-color: #11FF11;" data-bind="click : function(){ webview( false );   }">
+                        <strong > DONE</strong>
+                    </div>
+                </div>
+                <!-- /ko -->
             </div>
+            <!-- ko ifnot: webview() -->
             <!-- ko with : child() -->
+                <!-- ko if : classDay() -->
+                    <!-- ko with : classDay() -->
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title" data-bind="text : title "> </h3>
+                            </div>
+                            <div class="panel-body">
+                                <ol data-bind="foreach : items">
+                                    <li data-bind="html : replaceLink(html)"></li>
+                                </ol>
+                            </div>
+                        </div>
+                        <div class="menu menubottom">
+                            <div class="item" style="background-color : #11FF11;" data-bind="click : function(){ $parent.done(); }" >
+                                <strong>DONE</strong>
+                            </div>
+                        </div>
+                    <!-- /ko -->
+                <!-- /ko -->
                 <!-- ko if : day() == false -->
                     <!-- ko foreach : classDays() -->
                         <div class="panel panel-default">
@@ -94,6 +127,7 @@
                         </div>
                     <!-- /ko -->
                 <!-- /ko -->
+            <!-- /ko -->
             <!-- /ko -->
         <!-- /ko -->
     </body>

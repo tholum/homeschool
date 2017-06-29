@@ -1,4 +1,5 @@
 const electron = require('electron');
+const PDFWindow = require('electron-pdf-window')
 // Module to control application life.
 const app = electron.app;
 // Module to create native browser window.
@@ -7,13 +8,26 @@ const BrowserWindow = electron.BrowserWindow;
 const path = require('path');
 const url = require('url');
 
+let pluginName
+switch (process.platform) {
+  case 'win32':
+    pluginName = 'pepflashplayer.dll'
+    break
+  case 'darwin':
+    pluginName = 'PepperFlashPlayer.plugin'
+    break
+  case 'linux':
+    pluginName = '/usr/lib/pepperflashplugin-nonfree/libpepflashplayer.so'
+    break
+}
+app.commandLine.appendSwitch('ppapi-flash-path',  pluginName)
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
 
 function createWindow () {
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 800, height: 600});
+  mainWindow = new BrowserWindow({width: 1024, height: 768});
 
 
   // and load the index.html of the app.
@@ -22,7 +36,7 @@ function createWindow () {
     protocol: 'file:',
     slashes: true
 }));
-
+PDFWindow.addSupport(mainWindow);
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
 

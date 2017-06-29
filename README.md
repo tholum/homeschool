@@ -1,8 +1,16 @@
-#This is a simple electron app for homeschool
+# This is a simple electron app for homeschool
 
 My Kids currently are going through https://allinonehomeschool.com/ Which is an exelent free homeschooling site, Unfortunatly it is missing a few key features ( Tracking , Easy to read on smaller screens ext ) So I wrote a scrapper to grab the data, and I am currently writting a kid friendly ui for it
 
 This is very much in alpha stages, There is no ui for adding kids, Managing Printers ext,
+
+## REQUIREMENTS
+* Pepper Flash Player 
+
+```bash
+sudo apt install pepperflashplugin-nonfree
+``
+
 
 ## TODO Feature List
 

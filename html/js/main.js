@@ -1,8 +1,7 @@
 function openLink( url ){
   console.log( url );
-  var webview = $(`<webview id="foo" src="${url}" style="display:inline-flex; width:640px; height:480px"></webview>`);
-  
-  $("body").append(webview);
+  Main.webview( url );
+
 }
 function replaceLink( html ){
   var clean = $( "<div>" + html + "</div>" );
@@ -21,18 +20,50 @@ function Child(info){
     self.name = ko.observable( info.name );
     self.color = ko.observable( info.color );
     self.classes = ko.observableArray(info.classes );
+
     self.progress = ko.observableArray( info.progress );
     self.class = ko.observable( info.classes[0] );
+    self.day = ko.computed(function(){
+        var cls = self.class();
+        var progress = self.progress();
+        var day = 0;
+        if( cls ){
+            var match = ko.utils.arrayFilter( progress , function( pr ){
+                return pr.class == cls;
+            });
+            if( match ){
+                match.forEach( function(pr){
+                    if( pr.day >= day ){
+                        day = pr.day;
+                    }
+                });
+            }
+        }
+        return day + 1;
+    });
+    self.done = function(){
+            var day = self.day();
+            var cls = self.class();
+            self.progress.push( { "class" : cls , "day" : day });
+            Main.save();
+    };
     self.classDays = ko.observableArray([]);
+    self.classDay = ko.computed( function(){
+        var day = self.day();
+        return ko.utils.arrayFirst( self.classDays() , function(c){
+            return c.day == day;
+        });
+    });
     self.data = ko.observable( );
 
-    self.day = ko.observable( false );
+
+
+
     self.getData = function(){
         $.getJSON("data/" + self.class() + ".json" , function(data){
             var classDays = [];
             $.each( data , function( key , day ){
                 classDays.push( day );
-                console.log( day );
             });
             self.classDays( classDays );
             self.data(data);
@@ -51,10 +82,16 @@ function Child(info){
 
 function main(){
     var self = this;
-    self.child = ko.observable( false );
-    self.child.subscribe( function(c){
-        console.log( c );
+    self.webview = ko.observable(false);
+    self.webview.subscribe( function(v){
+        $("webview").remove();
+        if( v !== false ){
+            var webview = $(`<webview id="foo" class="active" src="${v}" style="display:inline-flex;" plugins></webview>`);
+            $("body").append(webview);
+        }
     });
+
+    self.child = ko.observable( false );
     self.children = ko.observableArray();
     self.updateInfo = function(){
         var children = JSON.parse( localStorage.getItem( "children" ) );
