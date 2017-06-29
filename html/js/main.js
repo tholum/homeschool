@@ -84,10 +84,17 @@ function main(){
     var self = this;
     self.webview = ko.observable(false);
     self.webview.subscribe( function(v){
-        $("webview").remove();
+        $(".webview").remove();
         if( v !== false ){
-            var webview = $(`<webview id="foo" class="active" src="${v}" style="display:inline-flex;" plugins></webview>`);
-            $("body").append(webview);
+            if( String(v).indexOf("epbookspot") !== -1 ){
+                $.get("https://epbookspot.wordpress.com/lesson-1/" , function( html ){
+                    var webview = $("<div  class='webview'>" + $("<div >" + html + "</div>" ).find(".entry-content").html() + "</div>");
+                    $("body").append(webview);
+                } );
+            } else {
+                var webview = $(`<webview class="webview active" src="${v}" style="display:inline-flex;" plugins></webview>`);
+                $("body").append(webview);
+            }
         }
     });
 
