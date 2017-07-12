@@ -27,8 +27,10 @@
                 margin-top: 2vw;
             }
             .menubottom {
-                position: absolute;
+                position: fixed;
                 bottom: 0;
+                padding: 1vw;
+                height :  12vw;
             }
             .menu {
                 width: 100%;
@@ -38,6 +40,12 @@
             }
             .menu .item {
                 width : 20%;
+            }
+            .menubottom .item {
+                width: 120%;
+            }
+            .menubottom .item, .menu .item {
+                
                 height : 10vw;
                 border-radius: 1vw;
                 font-size: 3vw;
@@ -54,12 +62,31 @@
               width: 100%;
               height: calc(100% - 12vw);
               z-index: 10000;
+              overflow: scroll;
+            }
+            .mainpanel {
+                height: calc(100% - 12vw );
+                position: fixed;
+                top: 12vw ;
+                overflow:scroll;
             }
             li {
                 font-size: 48px;
             }
             .readview {
                 font-size: 24px;
+            }
+            ::-webkit-scrollbar {
+                width: 45px;
+            }
+
+            ::-webkit-scrollbar-track {
+                -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+                
+            }
+            ::-webkit-scrollbar-thumb {
+                        background:  #555;
+                        border-radius: 10px;
             }
         </style>
     </head>
@@ -99,7 +126,7 @@
             <!-- ko with : child() -->
                 <!-- ko if : classDay() -->
                     <!-- ko with : classDay() -->
-                        <div class="panel panel-default">
+                        <div class="panel panel-default mainpanel">
                             <div class="panel-heading">
                                 <h3 class="panel-title" data-bind="text : title "> </h3>
                             </div>
@@ -109,7 +136,7 @@
                                 </ol>
                             </div>
                         </div>
-                        <div class="menu menubottom">
+                        <div class=" menubottom">
                             <div class="item" style="background-color : #11FF11;" data-bind="click : function(){ $parent.done(); }" >
                                 <strong>DONE</strong>
                             </div>
@@ -118,7 +145,7 @@
                 <!-- /ko -->
                 <!-- ko if : day() == false -->
                     <!-- ko foreach : classDays() -->
-                        <div class="panel panel-default">
+                        <div class="panel panel-default mainpanel">
                             <div class="panel-heading">
                                 <h3 class="panel-title" data-bind="text : title "> </h3>
                             </div>
